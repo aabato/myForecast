@@ -14,6 +14,10 @@
 		BDACF3731D10A9700098A2A7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BDACF3711D10A9700098A2A7 /* Main.storyboard */; };
 		BDACF3751D10A9700098A2A7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BDACF3741D10A9700098A2A7 /* Assets.xcassets */; };
 		BDACF3781D10A9700098A2A7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BDACF3761D10A9700098A2A7 /* LaunchScreen.storyboard */; };
+		BDB435901D10AF9B00BC64B4 /* Forecast.m in Sources */ = {isa = PBXBuildFile; fileRef = BDB4358F1D10AF9B00BC64B4 /* Forecast.m */; };
+		BDB435941D10B02800BC64B4 /* MFWeatherAPIClient.m in Sources */ = {isa = PBXBuildFile; fileRef = BDB435931D10B02800BC64B4 /* MFWeatherAPIClient.m */; };
+		BDB435971D10B06600BC64B4 /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = BDB435961D10B06600BC64B4 /* Constants.m */; };
+		BDB4359A1D10B07400BC64B4 /* Secrets.m in Sources */ = {isa = PBXBuildFile; fileRef = BDB435991D10B07400BC64B4 /* Secrets.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -29,6 +33,14 @@
 		BDACF3741D10A9700098A2A7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		BDACF3771D10A9700098A2A7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		BDACF3791D10A9700098A2A7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		BDB4358E1D10AF9B00BC64B4 /* Forecast.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Forecast.h; sourceTree = "<group>"; };
+		BDB4358F1D10AF9B00BC64B4 /* Forecast.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Forecast.m; sourceTree = "<group>"; };
+		BDB435921D10B02800BC64B4 /* MFWeatherAPIClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MFWeatherAPIClient.h; sourceTree = "<group>"; };
+		BDB435931D10B02800BC64B4 /* MFWeatherAPIClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MFWeatherAPIClient.m; sourceTree = "<group>"; };
+		BDB435951D10B06600BC64B4 /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
+		BDB435961D10B06600BC64B4 /* Constants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Constants.m; sourceTree = "<group>"; };
+		BDB435981D10B07400BC64B4 /* Secrets.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Secrets.h; sourceTree = "<group>"; };
+		BDB435991D10B07400BC64B4 /* Secrets.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Secrets.m; sourceTree = "<group>"; };
 		FFCE7B21B89D6235FC3A4B96 /* Pods-myForecast.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-myForecast.release.xcconfig"; path = "Pods/Target Support Files/Pods-myForecast/Pods-myForecast.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -47,6 +59,9 @@
 		BD0631261D10AB5A0052D9F2 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				BDB435911D10AFFA00BC64B4 /* APIs */,
+				BDB4358E1D10AF9B00BC64B4 /* Forecast.h */,
+				BDB4358F1D10AF9B00BC64B4 /* Forecast.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -106,8 +121,21 @@
 			children = (
 				BDACF3791D10A9700098A2A7 /* Info.plist */,
 				BDACF3691D10A9700098A2A7 /* main.m */,
+				BDB435951D10B06600BC64B4 /* Constants.h */,
+				BDB435961D10B06600BC64B4 /* Constants.m */,
+				BDB435981D10B07400BC64B4 /* Secrets.h */,
+				BDB435991D10B07400BC64B4 /* Secrets.m */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		BDB435911D10AFFA00BC64B4 /* APIs */ = {
+			isa = PBXGroup;
+			children = (
+				BDB435921D10B02800BC64B4 /* MFWeatherAPIClient.h */,
+				BDB435931D10B02800BC64B4 /* MFWeatherAPIClient.m */,
+			);
+			name = APIs;
 			sourceTree = "<group>";
 		};
 		D552A889251BCD2DA8FC0A78 /* Frameworks */ = {
@@ -248,9 +276,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BDB435941D10B02800BC64B4 /* MFWeatherAPIClient.m in Sources */,
+				BDB435901D10AF9B00BC64B4 /* Forecast.m in Sources */,
+				BDB4359A1D10B07400BC64B4 /* Secrets.m in Sources */,
 				BDACF3701D10A9700098A2A7 /* ViewController.m in Sources */,
 				BDACF36D1D10A9700098A2A7 /* AppDelegate.m in Sources */,
 				BDACF36A1D10A9700098A2A7 /* main.m in Sources */,
+				BDB435971D10B06600BC64B4 /* Constants.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
