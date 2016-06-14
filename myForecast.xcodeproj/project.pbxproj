@@ -10,7 +10,7 @@
 		053F83FBD7ABEF4A5188E96E /* libPods-myForecast.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 85F3AACEDC40190C99249241 /* libPods-myForecast.a */; };
 		BDACF36A1D10A9700098A2A7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = BDACF3691D10A9700098A2A7 /* main.m */; };
 		BDACF36D1D10A9700098A2A7 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = BDACF36C1D10A9700098A2A7 /* AppDelegate.m */; };
-		BDACF3701D10A9700098A2A7 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BDACF36F1D10A9700098A2A7 /* ViewController.m */; };
+		BDACF3701D10A9700098A2A7 /* WeatherViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BDACF36F1D10A9700098A2A7 /* WeatherViewController.m */; };
 		BDACF3731D10A9700098A2A7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BDACF3711D10A9700098A2A7 /* Main.storyboard */; };
 		BDACF3751D10A9700098A2A7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BDACF3741D10A9700098A2A7 /* Assets.xcassets */; };
 		BDACF3781D10A9700098A2A7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BDACF3761D10A9700098A2A7 /* LaunchScreen.storyboard */; };
@@ -27,8 +27,8 @@
 		BDACF3691D10A9700098A2A7 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		BDACF36B1D10A9700098A2A7 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		BDACF36C1D10A9700098A2A7 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		BDACF36E1D10A9700098A2A7 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		BDACF36F1D10A9700098A2A7 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		BDACF36E1D10A9700098A2A7 /* WeatherViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WeatherViewController.h; sourceTree = "<group>"; };
+		BDACF36F1D10A9700098A2A7 /* WeatherViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WeatherViewController.m; sourceTree = "<group>"; };
 		BDACF3721D10A9700098A2A7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		BDACF3741D10A9700098A2A7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		BDACF3771D10A9700098A2A7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -79,8 +79,8 @@
 		BD0631281D10AB680052D9F2 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				BDACF36E1D10A9700098A2A7 /* ViewController.h */,
-				BDACF36F1D10A9700098A2A7 /* ViewController.m */,
+				BDACF36E1D10A9700098A2A7 /* WeatherViewController.h */,
+				BDACF36F1D10A9700098A2A7 /* WeatherViewController.m */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -279,7 +279,7 @@
 				BDB435941D10B02800BC64B4 /* MFWeatherAPIClient.m in Sources */,
 				BDB435901D10AF9B00BC64B4 /* Forecast.m in Sources */,
 				BDB4359A1D10B07400BC64B4 /* Secrets.m in Sources */,
-				BDACF3701D10A9700098A2A7 /* ViewController.m in Sources */,
+				BDACF3701D10A9700098A2A7 /* WeatherViewController.m in Sources */,
 				BDACF36D1D10A9700098A2A7 /* AppDelegate.m in Sources */,
 				BDACF36A1D10A9700098A2A7 /* main.m in Sources */,
 				BDB435971D10B06600BC64B4 /* Constants.m in Sources */,

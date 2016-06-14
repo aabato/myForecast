@@ -6,14 +6,14 @@
 //  Copyright © 2016 Angelica Bato. All rights reserved.
 //
 
-#import "ViewController.h"
+#import "WeatherViewController.h"
 #import "MFWeatherAPIClient.h"
 
-@interface ViewController ()
+@interface WeatherViewController ()
 
 @end
 
-@implementation ViewController
+@implementation WeatherViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
