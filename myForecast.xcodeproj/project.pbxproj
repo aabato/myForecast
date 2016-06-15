@@ -12,13 +12,14 @@
 		BD0853C11D11AB4900B3DB67 /* CurrentWeatherTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BD0853C01D11AB4900B3DB67 /* CurrentWeatherTableViewCell.m */; };
 		BD0853C41D11AB5C00B3DB67 /* CurrentDetailedTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BD0853C31D11AB5C00B3DB67 /* CurrentDetailedTableViewCell.m */; };
 		BD0853C71D11AB7100B3DB67 /* DailyWeatherTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BD0853C61D11AB7100B3DB67 /* DailyWeatherTableViewCell.m */; };
+		BD678F051D11D66400BA8037 /* CurrentForecast.m in Sources */ = {isa = PBXBuildFile; fileRef = BD678F041D11D66400BA8037 /* CurrentForecast.m */; };
 		BDACF36A1D10A9700098A2A7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = BDACF3691D10A9700098A2A7 /* main.m */; };
 		BDACF36D1D10A9700098A2A7 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = BDACF36C1D10A9700098A2A7 /* AppDelegate.m */; };
 		BDACF3701D10A9700098A2A7 /* WeatherViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BDACF36F1D10A9700098A2A7 /* WeatherViewController.m */; };
 		BDACF3731D10A9700098A2A7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BDACF3711D10A9700098A2A7 /* Main.storyboard */; };
 		BDACF3751D10A9700098A2A7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BDACF3741D10A9700098A2A7 /* Assets.xcassets */; };
 		BDACF3781D10A9700098A2A7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BDACF3761D10A9700098A2A7 /* LaunchScreen.storyboard */; };
-		BDB435901D10AF9B00BC64B4 /* Forecast.m in Sources */ = {isa = PBXBuildFile; fileRef = BDB4358F1D10AF9B00BC64B4 /* Forecast.m */; };
+		BDB435901D10AF9B00BC64B4 /* DayForecast.m in Sources */ = {isa = PBXBuildFile; fileRef = BDB4358F1D10AF9B00BC64B4 /* DayForecast.m */; };
 		BDB435941D10B02800BC64B4 /* WeatherAPIClient.m in Sources */ = {isa = PBXBuildFile; fileRef = BDB435931D10B02800BC64B4 /* WeatherAPIClient.m */; };
 		BDB435971D10B06600BC64B4 /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = BDB435961D10B06600BC64B4 /* Constants.m */; };
 		BDB4359A1D10B07400BC64B4 /* Secrets.m in Sources */ = {isa = PBXBuildFile; fileRef = BDB435991D10B07400BC64B4 /* Secrets.m */; };
@@ -35,6 +36,8 @@
 		BD0853C31D11AB5C00B3DB67 /* CurrentDetailedTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CurrentDetailedTableViewCell.m; sourceTree = "<group>"; };
 		BD0853C51D11AB7100B3DB67 /* DailyWeatherTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DailyWeatherTableViewCell.h; sourceTree = "<group>"; };
 		BD0853C61D11AB7100B3DB67 /* DailyWeatherTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DailyWeatherTableViewCell.m; sourceTree = "<group>"; };
+		BD678F031D11D66400BA8037 /* CurrentForecast.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CurrentForecast.h; sourceTree = "<group>"; };
+		BD678F041D11D66400BA8037 /* CurrentForecast.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CurrentForecast.m; sourceTree = "<group>"; };
 		BDACF3651D10A9700098A2A7 /* myForecast.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = myForecast.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BDACF3691D10A9700098A2A7 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		BDACF36B1D10A9700098A2A7 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -45,8 +48,8 @@
 		BDACF3741D10A9700098A2A7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		BDACF3771D10A9700098A2A7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		BDACF3791D10A9700098A2A7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		BDB4358E1D10AF9B00BC64B4 /* Forecast.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Forecast.h; sourceTree = "<group>"; };
-		BDB4358F1D10AF9B00BC64B4 /* Forecast.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Forecast.m; sourceTree = "<group>"; };
+		BDB4358E1D10AF9B00BC64B4 /* DayForecast.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DayForecast.h; sourceTree = "<group>"; };
+		BDB4358F1D10AF9B00BC64B4 /* DayForecast.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DayForecast.m; sourceTree = "<group>"; };
 		BDB435921D10B02800BC64B4 /* WeatherAPIClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeatherAPIClient.h; sourceTree = "<group>"; };
 		BDB435931D10B02800BC64B4 /* WeatherAPIClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WeatherAPIClient.m; sourceTree = "<group>"; };
 		BDB435951D10B06600BC64B4 /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
@@ -72,8 +75,10 @@
 			isa = PBXGroup;
 			children = (
 				BDB435911D10AFFA00BC64B4 /* APIs */,
-				BDB4358E1D10AF9B00BC64B4 /* Forecast.h */,
-				BDB4358F1D10AF9B00BC64B4 /* Forecast.m */,
+				BDB4358E1D10AF9B00BC64B4 /* DayForecast.h */,
+				BDB4358F1D10AF9B00BC64B4 /* DayForecast.m */,
+				BD678F031D11D66400BA8037 /* CurrentForecast.h */,
+				BD678F041D11D66400BA8037 /* CurrentForecast.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -297,7 +302,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				BDB435941D10B02800BC64B4 /* WeatherAPIClient.m in Sources */,
-				BDB435901D10AF9B00BC64B4 /* Forecast.m in Sources */,
+				BDB435901D10AF9B00BC64B4 /* DayForecast.m in Sources */,
+				BD678F051D11D66400BA8037 /* CurrentForecast.m in Sources */,
 				BD0853C71D11AB7100B3DB67 /* DailyWeatherTableViewCell.m in Sources */,
 				BDB4359A1D10B07400BC64B4 /* Secrets.m in Sources */,
 				BDACF3701D10A9700098A2A7 /* WeatherViewController.m in Sources */,

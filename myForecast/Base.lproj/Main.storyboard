@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="gN8-N6-eDm">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -17,7 +17,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="currentSummary" rowHeight="148" id="neI-Wy-aea">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="currentSummary" rowHeight="148" id="neI-Wy-aea" customClass="CurrentWeatherTableViewCell">
                                 <rect key="frame" x="0.0" y="92" width="600" height="148"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="neI-Wy-aea" id="wv9-b9-uGX">
@@ -69,68 +69,123 @@
                                     </constraints>
                                 </tableViewCellContentView>
                             </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="currentDetail" rowHeight="216" id="Goe-kq-43D">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="currentDetail" rowHeight="216" id="Goe-kq-43D" customClass="CurrentDetailedTableViewCell">
                                 <rect key="frame" x="0.0" y="240" width="600" height="216"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Goe-kq-43D" id="gIy-o9-LkX">
                                     <rect key="frame" x="0.0" y="0.0" width="600" height="215.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Feels like: " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fJX-3l-G2M">
-                                            <rect key="frame" x="23" y="72" width="213" height="38"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Feels like: " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fJX-3l-G2M">
+                                            <rect key="frame" x="60" y="72.5" width="480" height="38"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="38" id="PNS-Pa-2yI"/>
+                                            </constraints>
                                             <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="17"/>
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Humidity: " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EKn-FT-uAO">
-                                            <rect key="frame" x="23" y="118" width="213" height="38"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Humidity: " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EKn-FT-uAO">
+                                            <rect key="frame" x="60" y="110.5" width="480" height="38"/>
                                             <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="17"/>
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Chance of Precipitation:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Emn-wk-7TK">
-                                            <rect key="frame" x="23" y="164" width="213" height="38"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Chance of Precipitation:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Emn-wk-7TK">
+                                            <rect key="frame" x="60" y="148.5" width="480" height="38"/>
                                             <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="17"/>
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Current Conditions" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NWR-tO-bHH">
-                                            <rect key="frame" x="17" y="8" width="554" height="56"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Current Conditions" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NWR-tO-bHH">
+                                            <rect key="frame" x="60" y="8" width="480" height="64.5"/>
                                             <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="25"/>
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstItem="NWR-tO-bHH" firstAttribute="height" secondItem="gIy-o9-LkX" secondAttribute="height" multiplier="0.33" id="5gu-U1-RI6"/>
+                                        <constraint firstItem="NWR-tO-bHH" firstAttribute="height" secondItem="gIy-o9-LkX" secondAttribute="height" multiplier="0.3" id="5gu-U1-RI6"/>
+                                        <constraint firstItem="fJX-3l-G2M" firstAttribute="top" secondItem="NWR-tO-bHH" secondAttribute="bottom" id="ASC-sb-5bb"/>
+                                        <constraint firstItem="Emn-wk-7TK" firstAttribute="height" secondItem="EKn-FT-uAO" secondAttribute="height" id="Cjb-BX-ltA"/>
+                                        <constraint firstItem="EKn-FT-uAO" firstAttribute="width" secondItem="fJX-3l-G2M" secondAttribute="width" id="Hkg-HT-Qvo"/>
+                                        <constraint firstItem="EKn-FT-uAO" firstAttribute="height" secondItem="fJX-3l-G2M" secondAttribute="height" id="IO7-ym-1ed"/>
+                                        <constraint firstItem="EKn-FT-uAO" firstAttribute="leading" secondItem="fJX-3l-G2M" secondAttribute="leading" id="J0n-uc-ihw"/>
+                                        <constraint firstItem="Emn-wk-7TK" firstAttribute="top" secondItem="EKn-FT-uAO" secondAttribute="bottom" id="JD1-2c-Rup"/>
+                                        <constraint firstItem="EKn-FT-uAO" firstAttribute="top" secondItem="fJX-3l-G2M" secondAttribute="bottom" id="Jcb-BL-8zr"/>
                                         <constraint firstItem="NWR-tO-bHH" firstAttribute="centerX" secondItem="gIy-o9-LkX" secondAttribute="centerX" id="KWm-di-q1Q"/>
                                         <constraint firstItem="fJX-3l-G2M" firstAttribute="width" secondItem="NWR-tO-bHH" secondAttribute="width" id="LtI-qV-dB5"/>
                                         <constraint firstItem="fJX-3l-G2M" firstAttribute="leading" secondItem="NWR-tO-bHH" secondAttribute="leading" id="a3i-Ey-uLr"/>
                                         <constraint firstAttribute="topMargin" secondItem="NWR-tO-bHH" secondAttribute="top" id="efC-eo-bKp"/>
+                                        <constraint firstItem="Emn-wk-7TK" firstAttribute="width" secondItem="EKn-FT-uAO" secondAttribute="width" id="fJN-nf-QUQ"/>
+                                        <constraint firstItem="Emn-wk-7TK" firstAttribute="leading" secondItem="EKn-FT-uAO" secondAttribute="leading" id="mdc-3n-eQH"/>
                                         <constraint firstItem="NWR-tO-bHH" firstAttribute="width" secondItem="gIy-o9-LkX" secondAttribute="width" multiplier="0.8" id="pNk-Ob-mHj"/>
                                     </constraints>
                                 </tableViewCellContentView>
                             </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="90" id="2Sk-ag-qhK">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="dayForecast" rowHeight="90" id="2Sk-ag-qhK" customClass="DailyWeatherTableViewCell">
                                 <rect key="frame" x="0.0" y="456" width="600" height="90"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="2Sk-ag-qhK" id="WAz-30-RhW">
                                     <rect key="frame" x="0.0" y="0.0" width="600" height="89.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="DAY" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FdB-gy-Tb4">
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="DAY" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FdB-gy-Tb4">
                                             <rect key="frame" x="20" y="8" width="72" height="49.5"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" secondItem="FdB-gy-Tb4" secondAttribute="height" multiplier="72:49" id="77D-BE-ZJe"/>
+                                                <constraint firstAttribute="width" constant="72" id="I1N-rI-goh"/>
+                                            </constraints>
                                             <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="20"/>
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="MM/DD" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ohk-vd-Bgg">
-                                            <rect key="frame" x="20" y="55" width="59" height="21"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="MM/DD" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ohk-vd-Bgg">
+                                            <rect key="frame" x="20" y="57.5" width="72" height="25"/>
                                             <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="14"/>
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="hXj-K2-ekc">
+                                            <rect key="frame" x="502.5" y="0.0" width="89.5" height="89.5"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" secondItem="hXj-K2-ekc" secondAttribute="height" multiplier="1:1" id="YWu-bq-Rte"/>
+                                            </constraints>
+                                        </imageView>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Summary" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="G0w-T6-IgK">
+                                            <rect key="frame" x="296" y="8.5" width="198" height="72"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Hi/Lo" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="B0y-6m-tFk">
+                                            <rect key="frame" x="111" y="9" width="107" height="72"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="107" id="UJ2-5P-ldn"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="25"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
                                     </subviews>
+                                    <constraints>
+                                        <constraint firstItem="hXj-K2-ekc" firstAttribute="centerY" secondItem="WAz-30-RhW" secondAttribute="centerY" id="3Ta-gF-cXg"/>
+                                        <constraint firstItem="B0y-6m-tFk" firstAttribute="height" secondItem="G0w-T6-IgK" secondAttribute="height" id="4NN-lO-5zQ"/>
+                                        <constraint firstItem="Ohk-vd-Bgg" firstAttribute="width" secondItem="FdB-gy-Tb4" secondAttribute="width" id="6KD-pG-Gz5"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="hXj-K2-ekc" secondAttribute="trailing" id="HXz-Au-asJ"/>
+                                        <constraint firstItem="Ohk-vd-Bgg" firstAttribute="leading" secondItem="FdB-gy-Tb4" secondAttribute="leading" id="KjD-Ji-7Wj"/>
+                                        <constraint firstItem="B0y-6m-tFk" firstAttribute="leading" secondItem="FdB-gy-Tb4" secondAttribute="trailing" constant="19" id="QDR-Jg-z8j"/>
+                                        <constraint firstItem="FdB-gy-Tb4" firstAttribute="leading" secondItem="WAz-30-RhW" secondAttribute="leadingMargin" constant="12" id="bG5-0Z-uQB"/>
+                                        <constraint firstItem="B0y-6m-tFk" firstAttribute="centerY" secondItem="WAz-30-RhW" secondAttribute="centerY" id="bKL-cC-bth"/>
+                                        <constraint firstAttribute="topMargin" secondItem="FdB-gy-Tb4" secondAttribute="top" id="fKO-p2-FGq"/>
+                                        <constraint firstItem="G0w-T6-IgK" firstAttribute="width" secondItem="WAz-30-RhW" secondAttribute="width" multiplier="0.33" id="kxO-a8-wus"/>
+                                        <constraint firstItem="Ohk-vd-Bgg" firstAttribute="height" secondItem="FdB-gy-Tb4" secondAttribute="height" multiplier="0.5" id="maE-zw-0qX"/>
+                                        <constraint firstItem="Ohk-vd-Bgg" firstAttribute="top" secondItem="FdB-gy-Tb4" secondAttribute="bottom" id="pb8-ps-A4u"/>
+                                        <constraint firstItem="G0w-T6-IgK" firstAttribute="height" secondItem="WAz-30-RhW" secondAttribute="height" multiplier="0.8" id="tvV-iO-YWn"/>
+                                        <constraint firstItem="hXj-K2-ekc" firstAttribute="leading" secondItem="G0w-T6-IgK" secondAttribute="trailing" constant="8.5" id="w6u-n2-inP"/>
+                                        <constraint firstItem="hXj-K2-ekc" firstAttribute="height" secondItem="WAz-30-RhW" secondAttribute="height" id="xAz-S9-obT"/>
+                                        <constraint firstItem="G0w-T6-IgK" firstAttribute="centerY" secondItem="WAz-30-RhW" secondAttribute="centerY" id="zoa-pX-keA"/>
+                                    </constraints>
                                 </tableViewCellContentView>
                             </tableViewCell>
                         </prototypes>
