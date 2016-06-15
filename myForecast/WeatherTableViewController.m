@@ -102,12 +102,19 @@
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 0) {
-        return 300.0;
+        return 350.0;
     }
     
     return 100;
 }
 
+-(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+    if (section == 1) {
+        return @"7 DAY FORECAST";
+    }
+    
+    return nil;
+}
 
 # pragma mark - Data Retrieval
 
@@ -128,30 +135,6 @@
     }
 }
 
--(void)getWeatherWithCompletionBlock:(void(^)(NSDictionary *currently, NSDictionary *day))completionBlock {
-    
-    [WeatherAPIClient getWeatherInfoForCurrentLocationForLatitude:self.latitude longitude:self.longitude withCompletion:^(NSDictionary *dict, BOOL hasValidData) {
-        //        completionBlock(dict[@"currently"],dict[@"daily"][@"data"][0]);
-        if (hasValidData){
-//            NSLog(@"-------Original Dictionary from API: %@",dict);
-            
-            self.current = [[CurrentForecast alloc] initWithDictionary:dict[@"currently"]];
-            self.dayForecasts = [NSMutableArray new];
-            NSArray *temp = dict[@"daily"][@"data"];
-            for (NSDictionary *dictionary in temp) {
-                DayForecast *day = [[DayForecast alloc] initWithDictionary:dictionary];
-                [self.dayForecasts addObject:day];
-            }
-            
-            [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-                [self.tableView reloadData];
-            }];
-           
-        }
-    }];
-    
-}
-
 
 #pragma mark - CLLocationManagerDelegate
 
@@ -170,7 +153,25 @@
     
     [self.locationManager stopUpdatingLocation];
     
-    
+    [WeatherAPIClient getWeatherInfoForCurrentLocationForLatitude:self.latitude longitude:self.longitude withCompletion:^(NSDictionary *dict, BOOL hasValidData) {
+        if (hasValidData){
+            NSLog(@"%@", dict);
+            
+            self.current = [[CurrentForecast alloc] initWithDictionary:dict[@"currently"]];
+            self.dayForecasts = [NSMutableArray new];
+            NSArray *temp = dict[@"daily"][@"data"];
+            for (NSDictionary *dictionary in temp) {
+                DayForecast *day = [[DayForecast alloc] initWithDictionary:dictionary];
+                [self.dayForecasts addObject:day];
+            }
+            
+            [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                [self.tableView reloadData];
+            }];
+            
+        }
+
+    }];
     
 //    CLGeocoder *geocoder = [[CLGeocoder alloc] init];
 //    [geocoder reverseGeocodeLocation:self.currentLocation completionHandler:^(NSArray<CLPlacemark *> * _Nullable placemarks, NSError * _Nullable error) {
