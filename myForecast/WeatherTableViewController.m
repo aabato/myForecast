@@ -165,7 +165,6 @@
     
     [WeatherAPIClient getWeatherInfoForCurrentLocationForLatitude:self.latitude longitude:self.longitude withCompletion:^(NSDictionary *dict, BOOL hasValidData) {
         if (hasValidData){
-            NSLog(@"%@", dict);
             
             self.current = [[CurrentForecast alloc] initWithDictionary:dict[@"currently"]];
             self.dayForecasts = [NSMutableArray new];
@@ -185,11 +184,9 @@
         for (CLPlacemark *placemark in placemarks) {
             self.city = [placemark locality];
             self.state = [placemark administrativeArea];
-            NSLog(@"%@,%@",self.latitude, self.longitude);
             count--;
         }
         if (count == 0) {
-            NSLog(@"Loc info done!");
             [[NSOperationQueue mainQueue] addOperationWithBlock:^{
                 
                 [self.tableView reloadData];
