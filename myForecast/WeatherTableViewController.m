@@ -77,9 +77,9 @@
     else if (indexPath.section == 0 && indexPath.row == 1) {
         CurrentDetailedTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"currentDetail" forIndexPath:indexPath];
         
-        cell.feelsLikeTempLabel.text = self.current.apparentTemp;
-        cell.humidityLabel.text = [NSString stringWithFormat:@"%f %%", self.current.humidity];
-        cell.chanceOfPrecipLabel.text = [NSString stringWithFormat:@"%f %%", self.current.precipProbability];
+        cell.feelsLikeTempLabel.text = [NSString stringWithFormat:@"Feels like: %@", self.current.apparentTemp];
+        cell.humidityLabel.text = [NSString stringWithFormat:@"Humidity: %.02f %%", self.current.humidity];
+        cell.chanceOfPrecipLabel.text = [NSString stringWithFormat:@"Chance of Precipitation: %.02f %%", self.current.precipProbability];
 
         return cell;
         
@@ -101,19 +101,29 @@
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.section == 0) {
-        return 350.0;
+    if (indexPath.section == 0 && indexPath.row == 0) {
+        return 300.0;
+    }
+    else if (indexPath.section == 0 && indexPath.row == 1) {
+        return 200.0;
     }
     
     return 100;
 }
 
 -(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+    if (section == 0) {
+        return [NSString stringWithFormat: @"Current Temperature in %@,%@", self.city, self.state];
+    }
     if (section == 1) {
-        return @"7 DAY FORECAST";
+        return @"7 Day Forecast";
     }
     
     return nil;
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    return 50;
 }
 
 # pragma mark - Data Retrieval
@@ -164,30 +174,29 @@
                 DayForecast *day = [[DayForecast alloc] initWithDictionary:dictionary];
                 [self.dayForecasts addObject:day];
             }
-            
-            [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-                [self.tableView reloadData];
-            }];
-            
         }
 
     }];
     
-//    CLGeocoder *geocoder = [[CLGeocoder alloc] init];
-//    [geocoder reverseGeocodeLocation:self.currentLocation completionHandler:^(NSArray<CLPlacemark *> * _Nullable placemarks, NSError * _Nullable error) {
-//        NSUInteger count = placemarks.count;
-//        
-//        for (CLPlacemark *placemark in placemarks) {
-//            self.city = [placemark locality];
-//            self.state = [placemark administrativeArea];
-//            NSLog(@"%@,%@",self.latitude, self.longitude);
-//            count--;
-//        }
-//        if (count == 0) {
-//            NSLog(@"Loc info done!");
-//            [self loadWeather];
-//        }
-//    }];
+    CLGeocoder *geocoder = [[CLGeocoder alloc] init];
+    [geocoder reverseGeocodeLocation:self.currentLocation completionHandler:^(NSArray<CLPlacemark *> * _Nullable placemarks, NSError * _Nullable error) {
+        NSUInteger count = placemarks.count;
+        
+        for (CLPlacemark *placemark in placemarks) {
+            self.city = [placemark locality];
+            self.state = [placemark administrativeArea];
+            NSLog(@"%@,%@",self.latitude, self.longitude);
+            count--;
+        }
+        if (count == 0) {
+            NSLog(@"Loc info done!");
+            [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                
+                [self.tableView reloadData];
+            }];
+            
+        }
+    }];
     
 }
 
