@@ -10,4 +10,8 @@
 
 @interface CurrentDetailedTableViewCell : UITableViewCell
 
+@property (strong, nonatomic) IBOutlet UILabel *feelsLikeTempLabel;
+@property (strong, nonatomic) IBOutlet UILabel *humidityLabel;
+@property (strong, nonatomic) IBOutlet UILabel *chanceOfPrecipLabel;
+
 @end

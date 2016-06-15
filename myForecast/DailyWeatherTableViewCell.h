@@ -10,4 +10,10 @@
 
 @interface DailyWeatherTableViewCell : UITableViewCell
 
+@property (strong, nonatomic) IBOutlet UILabel *dayLabel;
+@property (strong, nonatomic) IBOutlet UILabel *MMDDLabel;
+@property (strong, nonatomic) IBOutlet UILabel *highLowTempLabel;
+@property (strong, nonatomic) IBOutlet UILabel *summaryLabel;
+@property (strong, nonatomic) IBOutlet UIImageView *weatherIconImage;
+
 @end

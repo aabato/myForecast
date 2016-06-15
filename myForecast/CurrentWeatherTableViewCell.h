@@ -10,4 +10,10 @@
 
 @interface CurrentWeatherTableViewCell : UITableViewCell
 
+@property (strong, nonatomic) IBOutlet UILabel *currentTempLabel;
+@property (strong, nonatomic) IBOutlet UILabel *summaryLabel;
+@property (strong, nonatomic) IBOutlet UILabel *highLowTempLabel;
+@property (strong, nonatomic) IBOutlet UIImageView *weatherIconImage;
+
+
 @end

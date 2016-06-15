@@ -7,10 +7,17 @@
 //
 
 #import "WeatherTableViewController.h"
+#import "WeatherAPIClient.h"
+#import "CurrentWeatherTableViewCell.h"
+#import "CurrentDetailedTableViewCell.h"
+#import "DailyWeatherTableViewCell.h"
+#import "DayForecast.h"
+#import "CurrentForecast.h"
 
 @interface WeatherTableViewController ()
 
-
+@property (strong, nonatomic) CurrentForecast *current;
+@property (strong, nonatomic) NSMutableArray *dayForecasts;
 
 @end
 
@@ -19,17 +26,22 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
+//    self.view.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.8];
+//    UIActivityIndicatorView *spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
+//    [self.view addSubview:spinner];
+//    
+//    spinner.translatesAutoresizingMaskIntoConstraints = NO;
+//    [spinner.centerXAnchor constraintEqualToAnchor:self.view.centerXAnchor].active = YES;
+//    [spinner.centerYAnchor constraintEqualToAnchor:self.view.centerYAnchor].active = YES;
+//    [spinner.widthAnchor constraintEqualToAnchor:self.view.widthAnchor].active = YES;
+//    [spinner.widthAnchor constraintEqualToAnchor:self.view.heightAnchor].active = YES;
+//    
+//    [spinner startAnimating];
     
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    [self getLocation];
+    
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
 
 #pragma mark - Table view data source
 
@@ -38,56 +50,165 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    
     if (section == 0) {
         return 2;
+    }
+    else if (section == 1) {
+        return self.dayForecasts.count;
     }
     
     return 0;
 }
 
-/*
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:<#@"reuseIdentifier"#> forIndexPath:indexPath];
+    if (indexPath.section == 0 && indexPath.row == 0 ) {
+        CurrentWeatherTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"currentSummary" forIndexPath:indexPath];
+        DayForecast *today = self.dayForecasts[0];
+        
+        cell.currentTempLabel.text = self.current.currentTemp;
+        cell.summaryLabel.text = self.current.summary;
+        cell.highLowTempLabel.text = [NSString stringWithFormat:@"%@%@F/%@%@F",today.tempMin,@"\u00B0",today.tempMax,@"\u00B0"];
+        cell.weatherIconImage.image = [UIImage imageNamed:self.current.icon];
+        
+        return cell;
+    }
+    else if (indexPath.section == 0 && indexPath.row == 1) {
+        CurrentDetailedTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"currentDetail" forIndexPath:indexPath];
+        
+        cell.feelsLikeTempLabel.text = self.current.apparentTemp;
+        cell.humidityLabel.text = [NSString stringWithFormat:@"%f %%", self.current.humidity];
+        cell.chanceOfPrecipLabel.text = [NSString stringWithFormat:@"%f %%", self.current.precipProbability];
+
+        return cell;
+        
+    }
+    else if (indexPath.section == 1) {
+        DailyWeatherTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"dayForecast" forIndexPath:indexPath];
+        
+        DayForecast *day = self.dayForecasts[indexPath.row];
+        
+        cell.MMDDLabel.text = day.date;
+        cell.highLowTempLabel.text = [NSString stringWithFormat:@"%@%@F/%@%@F",day.tempMin,@"\u00B0",day.tempMax,@"\u00B0"];
+        cell.summaryLabel.text = day.summary;
+        cell.weatherIconImage.image = [UIImage imageNamed:day.icon];
+        
+        return cell;
+    }
     
-    // Configure the cell...
+    return nil;
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (indexPath.section == 0) {
+        return 300.0;
+    }
     
-    return cell;
+    return 100;
 }
-*/
 
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
-}
-*/
 
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
+# pragma mark - Data Retrieval
 
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
+- (void)getLocation {
+    
+    NSLog(@"1");
+    
+    if ([CLLocationManager locationServicesEnabled]) {
+        NSLog(@"2");
+        self.locationManager = [[CLLocationManager alloc] init];
+        self.locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters;
+        self.locationManager.delegate = self;
+        [self.locationManager requestWhenInUseAuthorization];
+        if ([self.locationManager respondsToSelector:@selector(requestWhenInUseAuthorization)]) {
+            [self.locationManager requestWhenInUseAuthorization];
+        }
+        [self.locationManager startUpdatingLocation];
+    }
 }
-*/
 
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
+-(void)getWeatherWithCompletionBlock:(void(^)(NSDictionary *currently, NSDictionary *day))completionBlock {
+    
+    [WeatherAPIClient getWeatherInfoForCurrentLocationForLatitude:self.latitude longitude:self.longitude withCompletion:^(NSDictionary *dict, BOOL hasValidData) {
+        //        completionBlock(dict[@"currently"],dict[@"daily"][@"data"][0]);
+        if (hasValidData){
+//            NSLog(@"-------Original Dictionary from API: %@",dict);
+            
+            self.current = [[CurrentForecast alloc] initWithDictionary:dict[@"currently"]];
+            self.dayForecasts = [NSMutableArray new];
+            NSArray *temp = dict[@"daily"][@"data"];
+            for (NSDictionary *dictionary in temp) {
+                DayForecast *day = [[DayForecast alloc] initWithDictionary:dictionary];
+                [self.dayForecasts addObject:day];
+            }
+            
+            [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                [self.tableView reloadData];
+            }];
+           
+        }
+    }];
+    
 }
-*/
+
+
+#pragma mark - CLLocationManagerDelegate
+
+- (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
+{
+    NSLog(@"didFailWithError: %@", error);
+    
+}
+
+- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray<CLLocation *> *)locations {
+    
+    self.currentLocation = [locations lastObject];
+    
+    self.latitude = [NSString stringWithFormat:@"%f",self.currentLocation.coordinate.latitude];
+    self.longitude = [NSString stringWithFormat:@"%f",self.currentLocation.coordinate.longitude];
+    
+    [self.locationManager stopUpdatingLocation];
+    
+    
+    
+//    CLGeocoder *geocoder = [[CLGeocoder alloc] init];
+//    [geocoder reverseGeocodeLocation:self.currentLocation completionHandler:^(NSArray<CLPlacemark *> * _Nullable placemarks, NSError * _Nullable error) {
+//        NSUInteger count = placemarks.count;
+//        
+//        for (CLPlacemark *placemark in placemarks) {
+//            self.city = [placemark locality];
+//            self.state = [placemark administrativeArea];
+//            NSLog(@"%@,%@",self.latitude, self.longitude);
+//            count--;
+//        }
+//        if (count == 0) {
+//            NSLog(@"Loc info done!");
+//            [self loadWeather];
+//        }
+//    }];
+    
+}
+
+- (void)locationManager:(CLLocationManager*)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status
+{
+    switch (status) {
+        case kCLAuthorizationStatusNotDetermined: {
+            NSLog(@"User still thinking..");
+        } break;
+        case kCLAuthorizationStatusDenied: {
+            NSLog(@"User hates you");
+        } break;
+        case kCLAuthorizationStatusAuthorizedWhenInUse:
+        case kCLAuthorizationStatusAuthorizedAlways: {
+            [self.locationManager startUpdatingLocation];
+        } break;
+        default:
+            break;
+    }
+}
+
+
 
 /*
 #pragma mark - Navigation

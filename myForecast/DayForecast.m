@@ -20,10 +20,10 @@
         _date = [dateFormatter stringFromDate:tempDate];
         _day = @""; //Change this later.
         
-        _tempMax = dictionary[@"temperatureMax"];
-        _tempMin = dictionary[@"temperatureMin"];
-        _summary = dictionary[@"summary"];
-        _icon = dictionary[@"icon"];
+        _tempMax = [dictionary[@"temperatureMax"] stringValue];
+        _tempMin = [dictionary[@"temperatureMin"] stringValue];
+        _summary = [dictionary[@"summary"] stringValue];
+        _icon = [dictionary[@"icon"] stringValue];
     }
     
     return self;

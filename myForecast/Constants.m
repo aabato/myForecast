@@ -10,3 +10,5 @@
 
 NSString *const darkSkyForecastURL = @"https://api.forecast.io/forecast";
 
+//CREDITS:
+//sun by Joel Avery from the Noun Project
