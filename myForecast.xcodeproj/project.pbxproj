@@ -8,6 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		053F83FBD7ABEF4A5188E96E /* libPods-myForecast.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 85F3AACEDC40190C99249241 /* libPods-myForecast.a */; };
+		BD0853BE1D11AACC00B3DB67 /* WeatherTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BD0853BD1D11AACC00B3DB67 /* WeatherTableViewController.m */; };
+		BD0853C11D11AB4900B3DB67 /* CurrentWeatherTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BD0853C01D11AB4900B3DB67 /* CurrentWeatherTableViewCell.m */; };
+		BD0853C41D11AB5C00B3DB67 /* CurrentDetailedTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BD0853C31D11AB5C00B3DB67 /* CurrentDetailedTableViewCell.m */; };
+		BD0853C71D11AB7100B3DB67 /* DailyWeatherTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BD0853C61D11AB7100B3DB67 /* DailyWeatherTableViewCell.m */; };
 		BDACF36A1D10A9700098A2A7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = BDACF3691D10A9700098A2A7 /* main.m */; };
 		BDACF36D1D10A9700098A2A7 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = BDACF36C1D10A9700098A2A7 /* AppDelegate.m */; };
 		BDACF3701D10A9700098A2A7 /* WeatherViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BDACF36F1D10A9700098A2A7 /* WeatherViewController.m */; };
@@ -15,7 +19,7 @@
 		BDACF3751D10A9700098A2A7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BDACF3741D10A9700098A2A7 /* Assets.xcassets */; };
 		BDACF3781D10A9700098A2A7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BDACF3761D10A9700098A2A7 /* LaunchScreen.storyboard */; };
 		BDB435901D10AF9B00BC64B4 /* Forecast.m in Sources */ = {isa = PBXBuildFile; fileRef = BDB4358F1D10AF9B00BC64B4 /* Forecast.m */; };
-		BDB435941D10B02800BC64B4 /* MFWeatherAPIClient.m in Sources */ = {isa = PBXBuildFile; fileRef = BDB435931D10B02800BC64B4 /* MFWeatherAPIClient.m */; };
+		BDB435941D10B02800BC64B4 /* WeatherAPIClient.m in Sources */ = {isa = PBXBuildFile; fileRef = BDB435931D10B02800BC64B4 /* WeatherAPIClient.m */; };
 		BDB435971D10B06600BC64B4 /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = BDB435961D10B06600BC64B4 /* Constants.m */; };
 		BDB4359A1D10B07400BC64B4 /* Secrets.m in Sources */ = {isa = PBXBuildFile; fileRef = BDB435991D10B07400BC64B4 /* Secrets.m */; };
 /* End PBXBuildFile section */
@@ -23,6 +27,14 @@
 /* Begin PBXFileReference section */
 		253974E27A6770418A90CA31 /* Pods-myForecast.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-myForecast.debug.xcconfig"; path = "Pods/Target Support Files/Pods-myForecast/Pods-myForecast.debug.xcconfig"; sourceTree = "<group>"; };
 		85F3AACEDC40190C99249241 /* libPods-myForecast.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-myForecast.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		BD0853BC1D11AACC00B3DB67 /* WeatherTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeatherTableViewController.h; sourceTree = "<group>"; };
+		BD0853BD1D11AACC00B3DB67 /* WeatherTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WeatherTableViewController.m; sourceTree = "<group>"; };
+		BD0853BF1D11AB4900B3DB67 /* CurrentWeatherTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CurrentWeatherTableViewCell.h; sourceTree = "<group>"; };
+		BD0853C01D11AB4900B3DB67 /* CurrentWeatherTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CurrentWeatherTableViewCell.m; sourceTree = "<group>"; };
+		BD0853C21D11AB5C00B3DB67 /* CurrentDetailedTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CurrentDetailedTableViewCell.h; sourceTree = "<group>"; };
+		BD0853C31D11AB5C00B3DB67 /* CurrentDetailedTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CurrentDetailedTableViewCell.m; sourceTree = "<group>"; };
+		BD0853C51D11AB7100B3DB67 /* DailyWeatherTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DailyWeatherTableViewCell.h; sourceTree = "<group>"; };
+		BD0853C61D11AB7100B3DB67 /* DailyWeatherTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DailyWeatherTableViewCell.m; sourceTree = "<group>"; };
 		BDACF3651D10A9700098A2A7 /* myForecast.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = myForecast.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BDACF3691D10A9700098A2A7 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		BDACF36B1D10A9700098A2A7 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -35,8 +47,8 @@
 		BDACF3791D10A9700098A2A7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BDB4358E1D10AF9B00BC64B4 /* Forecast.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Forecast.h; sourceTree = "<group>"; };
 		BDB4358F1D10AF9B00BC64B4 /* Forecast.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Forecast.m; sourceTree = "<group>"; };
-		BDB435921D10B02800BC64B4 /* MFWeatherAPIClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MFWeatherAPIClient.h; sourceTree = "<group>"; };
-		BDB435931D10B02800BC64B4 /* MFWeatherAPIClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MFWeatherAPIClient.m; sourceTree = "<group>"; };
+		BDB435921D10B02800BC64B4 /* WeatherAPIClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeatherAPIClient.h; sourceTree = "<group>"; };
+		BDB435931D10B02800BC64B4 /* WeatherAPIClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WeatherAPIClient.m; sourceTree = "<group>"; };
 		BDB435951D10B06600BC64B4 /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
 		BDB435961D10B06600BC64B4 /* Constants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Constants.m; sourceTree = "<group>"; };
 		BDB435981D10B07400BC64B4 /* Secrets.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Secrets.h; sourceTree = "<group>"; };
@@ -72,6 +84,12 @@
 				BDACF3711D10A9700098A2A7 /* Main.storyboard */,
 				BDACF3741D10A9700098A2A7 /* Assets.xcassets */,
 				BDACF3761D10A9700098A2A7 /* LaunchScreen.storyboard */,
+				BD0853BF1D11AB4900B3DB67 /* CurrentWeatherTableViewCell.h */,
+				BD0853C01D11AB4900B3DB67 /* CurrentWeatherTableViewCell.m */,
+				BD0853C21D11AB5C00B3DB67 /* CurrentDetailedTableViewCell.h */,
+				BD0853C31D11AB5C00B3DB67 /* CurrentDetailedTableViewCell.m */,
+				BD0853C51D11AB7100B3DB67 /* DailyWeatherTableViewCell.h */,
+				BD0853C61D11AB7100B3DB67 /* DailyWeatherTableViewCell.m */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -81,6 +99,8 @@
 			children = (
 				BDACF36E1D10A9700098A2A7 /* WeatherViewController.h */,
 				BDACF36F1D10A9700098A2A7 /* WeatherViewController.m */,
+				BD0853BC1D11AACC00B3DB67 /* WeatherTableViewController.h */,
+				BD0853BD1D11AACC00B3DB67 /* WeatherTableViewController.m */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -132,8 +152,8 @@
 		BDB435911D10AFFA00BC64B4 /* APIs */ = {
 			isa = PBXGroup;
 			children = (
-				BDB435921D10B02800BC64B4 /* MFWeatherAPIClient.h */,
-				BDB435931D10B02800BC64B4 /* MFWeatherAPIClient.m */,
+				BDB435921D10B02800BC64B4 /* WeatherAPIClient.h */,
+				BDB435931D10B02800BC64B4 /* WeatherAPIClient.m */,
 			);
 			name = APIs;
 			sourceTree = "<group>";
@@ -276,13 +296,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BDB435941D10B02800BC64B4 /* MFWeatherAPIClient.m in Sources */,
+				BDB435941D10B02800BC64B4 /* WeatherAPIClient.m in Sources */,
 				BDB435901D10AF9B00BC64B4 /* Forecast.m in Sources */,
+				BD0853C71D11AB7100B3DB67 /* DailyWeatherTableViewCell.m in Sources */,
 				BDB4359A1D10B07400BC64B4 /* Secrets.m in Sources */,
 				BDACF3701D10A9700098A2A7 /* WeatherViewController.m in Sources */,
 				BDACF36D1D10A9700098A2A7 /* AppDelegate.m in Sources */,
 				BDACF36A1D10A9700098A2A7 /* main.m in Sources */,
+				BD0853BE1D11AACC00B3DB67 /* WeatherTableViewController.m in Sources */,
 				BDB435971D10B06600BC64B4 /* Constants.m in Sources */,
+				BD0853C11D11AB4900B3DB67 /* CurrentWeatherTableViewCell.m in Sources */,
+				BD0853C41D11AB5C00B3DB67 /* CurrentDetailedTableViewCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

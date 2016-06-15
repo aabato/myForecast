@@ -7,7 +7,7 @@
 //
 
 #import "WeatherViewController.h"
-#import "MFWeatherAPIClient.h"
+#import "WeatherAPIClient.h"
 
 @interface WeatherViewController ()
 
@@ -18,11 +18,38 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    UIActivityIndicatorView *spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
+    [self.view addSubview:spinner];
+    
+    spinner.translatesAutoresizingMaskIntoConstraints = NO;
+    [spinner.centerXAnchor constraintEqualToAnchor:self.view.centerXAnchor].active = YES;
+    [spinner.centerYAnchor constraintEqualToAnchor:self.view.centerYAnchor].active = YES;
+    [spinner.widthAnchor constraintEqualToAnchor:self.view.widthAnchor].active = YES;
+    [spinner.widthAnchor constraintEqualToAnchor:self.view.heightAnchor].active = YES;
+    
+    [spinner startAnimating];
+    
+    [self getLocation];
     
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
+}
+
+- (void)loadWeather {
+    [self getWeatherWithCompletionBlock:^(NSDictionary *currently, NSDictionary *day) {
+        NSLog(@"Currently: %@",currently);
+        NSLog(@"Temp:%@", currently[@"apparentTemperature"]);
+        NSLog(@"Summary:%@", currently[@"summary"]);
+        NSLog(@"Day: %@",day);
+        
+//        [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+//            self.currentTempLabel.text = [NSString stringWithFormat:@"%@",self.currently[@"apparentTemperature"]];
+//            self.currentSummaryLabel.text = [NSString stringWithFormat:@"%@",self.currently[@"summary"]];
+//        }];
+        
+    }];
 }
 
 # pragma mark - Data Retrieval
@@ -46,9 +73,11 @@
 
 -(void)getWeatherWithCompletionBlock:(void(^)(NSDictionary *currently, NSDictionary *day))completionBlock {
     
-    [MFWeatherAPIClient getWeatherInfoForCurrentLocationForLatitude:self.latitude longitude:self.longitude withCompletion:^(NSDictionary *dict) {
-        //        NSLog(@"%@",dict[@"currently"][@"apparentTemperature"]);
-        completionBlock(dict[@"currently"],dict[@"daily"][@"data"][0]);
+    [WeatherAPIClient getWeatherInfoForCurrentLocationForLatitude:self.latitude longitude:self.longitude withCompletion:^(NSDictionary *dict, BOOL hasValidData) {
+//        completionBlock(dict[@"currently"],dict[@"daily"][@"data"][0]);
+        if (hasValidData){
+            NSLog(@"-------Original Dictionary from API: %@",dict);
+        }
     }];
     
 }
@@ -83,7 +112,8 @@
             count--;
         }
         if (count == 0) {
-            [[NSNotificationCenter defaultCenter] postNotificationName:@"locationInfoComplete" object:nil];
+            NSLog(@"Loc info done!");
+            [self loadWeather];
         }
     }];
     
