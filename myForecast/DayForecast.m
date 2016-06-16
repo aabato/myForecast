@@ -20,8 +20,8 @@
         _date = [dateFormatter stringFromDate:tempDate];
         _day = @""; //Change this later.
         
-        _tempMax = [NSString stringWithFormat:@"%.02f", [dictionary[@"temperatureMax"] doubleValue]];
-        _tempMin = [NSString stringWithFormat:@"%.02f", [dictionary[@"temperatureMin"] doubleValue]];
+        _tempMax = [NSString stringWithFormat:@"%.0f", [dictionary[@"temperatureMax"] doubleValue]];
+        _tempMin = [NSString stringWithFormat:@"%.0f", [dictionary[@"temperatureMin"] doubleValue]];
         _summary = [NSString stringWithFormat:@"%@", dictionary[@"summary"]];
         _icon = [NSString stringWithFormat:@"%@", dictionary[@"icon"]];
     }

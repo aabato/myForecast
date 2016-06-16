@@ -26,22 +26,26 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-//    self.view.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.8];
-//    UIActivityIndicatorView *spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
-//    [self.view addSubview:spinner];
-//    
-//    spinner.translatesAutoresizingMaskIntoConstraints = NO;
-//    [spinner.centerXAnchor constraintEqualToAnchor:self.view.centerXAnchor].active = YES;
-//    [spinner.centerYAnchor constraintEqualToAnchor:self.view.centerYAnchor].active = YES;
-//    [spinner.widthAnchor constraintEqualToAnchor:self.view.widthAnchor].active = YES;
-//    [spinner.widthAnchor constraintEqualToAnchor:self.view.heightAnchor].active = YES;
-//    
-//    [spinner startAnimating];
-    
     [self getLocation];
     
 }
 
+- (IBAction)refreshData:(id)sender {
+    
+    self.current = nil;
+    [self.dayForecasts removeAllObjects];
+    self.currentLocation = nil;
+    self.latitude = @"";
+    self.longitude = @"";
+    self.city = @"";
+    self.state = @"";
+    
+    NSLog(@"Refreshing");
+    
+    [self getLocation];
+    [self.refreshControl endRefreshing];
+    
+}
 
 #pragma mark - Table view data source
 
@@ -55,11 +59,12 @@
         return 2;
     }
     else if (section == 1) {
-        return self.dayForecasts.count;
+        return self.dayForecasts.count - 1;
     }
     
     return 0;
 }
+
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -67,9 +72,9 @@
         CurrentWeatherTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"currentSummary" forIndexPath:indexPath];
         DayForecast *today = self.dayForecasts[0];
         
-        cell.currentTempLabel.text = self.current.currentTemp;
+        cell.currentTempLabel.text = [NSString stringWithFormat:@"%@\u00B0 F", self.current.currentTemp];
         cell.summaryLabel.text = self.current.summary;
-        cell.highLowTempLabel.text = [NSString stringWithFormat:@"%@%@F/%@%@F",today.tempMin,@"\u00B0",today.tempMax,@"\u00B0"];
+        cell.highLowTempLabel.text = [NSString stringWithFormat:@"%@\u00B0 F/%@\u00B0 F",today.tempMin,today.tempMax];
         cell.weatherIconImage.image = [UIImage imageNamed:self.current.icon];
         
         return cell;
@@ -77,9 +82,9 @@
     else if (indexPath.section == 0 && indexPath.row == 1) {
         CurrentDetailedTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"currentDetail" forIndexPath:indexPath];
         
-        cell.feelsLikeTempLabel.text = [NSString stringWithFormat:@"Feels like: %@", self.current.apparentTemp];
-        cell.humidityLabel.text = [NSString stringWithFormat:@"Humidity: %.02f %%", self.current.humidity];
-        cell.chanceOfPrecipLabel.text = [NSString stringWithFormat:@"Chance of Precipitation: %.02f %%", self.current.precipProbability];
+        cell.feelsLikeTempLabel.text = [NSString stringWithFormat:@"Feels like: %@\u00B0 F", self.current.apparentTemp];
+        cell.humidityLabel.text = [NSString stringWithFormat:@"Humidity: %.0f %%", self.current.humidity];
+        cell.chanceOfPrecipLabel.text = [NSString stringWithFormat:@"Chance of Precipitation: %.0f %%", self.current.precipProbability];
 
         return cell;
         
@@ -87,10 +92,10 @@
     else if (indexPath.section == 1) {
         DailyWeatherTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"dayForecast" forIndexPath:indexPath];
         
-        DayForecast *day = self.dayForecasts[indexPath.row];
+        DayForecast *day = self.dayForecasts[indexPath.row + 1];
         
         cell.MMDDLabel.text = day.date;
-        cell.highLowTempLabel.text = [NSString stringWithFormat:@"%@%@F/%@%@F",day.tempMin,@"\u00B0",day.tempMax,@"\u00B0"];
+        cell.highLowTempLabel.text = [NSString stringWithFormat:@"%@\u00B0F/%@\u00B0F",day.tempMin,day.tempMax];
         cell.summaryLabel.text = day.summary;
         cell.weatherIconImage.image = [UIImage imageNamed:day.icon];
         
@@ -113,7 +118,7 @@
 
 -(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
     if (section == 0) {
-        return [NSString stringWithFormat: @"Current Temperature in %@,%@", self.city, self.state];
+        return [NSString stringWithFormat: @"Current Temperature in %@, %@", self.city, self.state];
     }
     if (section == 1) {
         return @"7 Day Forecast";
@@ -130,10 +135,9 @@
 
 - (void)getLocation {
     
-    NSLog(@"1");
+    NSLog(@"GET LOCATION CALLED");
     
     if ([CLLocationManager locationServicesEnabled]) {
-        NSLog(@"2");
         self.locationManager = [[CLLocationManager alloc] init];
         self.locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters;
         self.locationManager.delegate = self;
@@ -156,16 +160,20 @@
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray<CLLocation *> *)locations {
     
+    NSLog(@"Location found");
     self.currentLocation = [locations lastObject];
     
     self.latitude = [NSString stringWithFormat:@"%f",self.currentLocation.coordinate.latitude];
     self.longitude = [NSString stringWithFormat:@"%f",self.currentLocation.coordinate.longitude];
+    
+    NSLog(@"LAT: %@, LON: %@", self.latitude, self.longitude);
     
     [self.locationManager stopUpdatingLocation];
     
     [WeatherAPIClient getWeatherInfoForCurrentLocationForLatitude:self.latitude longitude:self.longitude withCompletion:^(NSDictionary *dict, BOOL hasValidData) {
         if (hasValidData){
             
+            NSLog(@"Hitting API");
             self.current = [[CurrentForecast alloc] initWithDictionary:dict[@"currently"]];
             self.dayForecasts = [NSMutableArray new];
             NSArray *temp = dict[@"daily"][@"data"];
@@ -184,11 +192,12 @@
         for (CLPlacemark *placemark in placemarks) {
             self.city = [placemark locality];
             self.state = [placemark administrativeArea];
+            NSLog(@"%@, %@", self.city, self.state);
             count--;
         }
         if (count == 0) {
             [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-                
+                NSLog(@"Updating tableview");
                 [self.tableView reloadData];
             }];
             

@@ -15,11 +15,11 @@
     if (self) {
         _tempMin = @"";
         _tempMax = @"";
-        _apparentTemp = [NSString stringWithFormat:@"%.02f", [dictionary[@"apparentTemperature"] doubleValue]];
+        _apparentTemp = [NSString stringWithFormat:@"%.0f", [dictionary[@"apparentTemperature"] doubleValue]];
         _humidity = [dictionary[@"humidity"] doubleValue] * 100;
         _icon = [NSString stringWithFormat:@"%@", dictionary[@"icon"]];
         _summary = [NSString stringWithFormat:@"%@", dictionary[@"summary"]];
-        _currentTemp = [NSString stringWithFormat:@"%.02f", [dictionary[@"temperature"] doubleValue]];
+        _currentTemp = [NSString stringWithFormat:@"%.0f", [dictionary[@"temperature"] doubleValue]];
         _precipProbability = [dictionary[@"precipProbability"] doubleValue] * 100;
     }
     
