@@ -16,7 +16,14 @@
 
 @interface WeatherTableViewController ()
 
-@property (strong, nonatomic) CurrentForecast *current;
+@property (retain, nonatomic) CLLocationManager *locationManager;
+@property (strong, nonatomic) CLLocation *currentLocation;
+@property (strong, nonatomic) NSString *latitude;
+@property (strong, nonatomic) NSString *longitude;
+@property (strong, nonatomic) NSString *city;
+@property (strong, nonatomic) NSString *state;
+
+@property (strong, nonatomic) CurrentForecast *currentForecast;
 @property (strong, nonatomic) NSMutableArray *dayForecasts;
 
 @end
@@ -32,7 +39,7 @@
 
 - (IBAction)refreshData:(id)sender {
     
-    self.current = nil;
+    self.currentForecast = nil;
     [self.dayForecasts removeAllObjects];
     self.currentLocation = nil;
     self.latitude = @"";
@@ -42,7 +49,7 @@
     
     NSLog(@"Refreshing");
     
-    NSLog(@"%@, %@, %@, %@, %@, %@, %@", self.current, self.dayForecasts, self.currentLocation, self.latitude, self.longitude, self.city, self.state);
+    NSLog(@"%@, %@, %@, %@, %@, %@, %@", self.currentForecast, self.dayForecasts, self.currentLocation, self.latitude, self.longitude, self.city, self.state);
     
     [self getLocation];
     [self.refreshControl endRefreshing];
@@ -71,21 +78,22 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 0 && indexPath.row == 0 ) {
         CurrentWeatherTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"currentSummary" forIndexPath:indexPath];
+        
         DayForecast *today = self.dayForecasts[0];
         
-        cell.currentTempLabel.text = [NSString stringWithFormat:@"%@\u00B0 F", self.current.currentTemp];
-        cell.summaryLabel.text = self.current.summary;
+        cell.currentTempLabel.text = [NSString stringWithFormat:@"%@\u00B0 F", self.currentForecast.currentTemp];
+        cell.summaryLabel.text = self.currentForecast.summary;
         cell.highLowTempLabel.text = [NSString stringWithFormat:@"%@\u00B0 F/%@\u00B0 F",today.tempMin,today.tempMax];
-        cell.weatherIconImage.image = [UIImage imageNamed:self.current.icon];
+        cell.weatherIconImage.image = [UIImage imageNamed:self.currentForecast.icon];
         
         return cell;
     }
     else if (indexPath.section == 0 && indexPath.row == 1) {
         CurrentDetailedTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"currentDetail" forIndexPath:indexPath];
         
-        cell.feelsLikeTempLabel.text = [NSString stringWithFormat:@"Feels like: %@\u00B0 F", self.current.apparentTemp];
-        cell.humidityLabel.text = [NSString stringWithFormat:@"Humidity: %.0f %%", self.current.humidity];
-        cell.chanceOfPrecipLabel.text = [NSString stringWithFormat:@"Chance of Precipitation: %.0f %%", self.current.precipProbability];
+        cell.feelsLikeTempLabel.text = [NSString stringWithFormat:@"Feels like: %@\u00B0 F", self.currentForecast.apparentTemp];
+        cell.humidityLabel.text = [NSString stringWithFormat:@"Humidity: %.0f %%", self.currentForecast.humidity];
+        cell.chanceOfPrecipLabel.text = [NSString stringWithFormat:@"Chance of Precipitation: %.0f %%", self.currentForecast.precipProbability];
 
         return cell;
         
@@ -119,7 +127,7 @@
 
 -(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
     if (section == 0) {
-        return [NSString stringWithFormat: @"Current Temperature in %@, %@", self.city, self.state];
+        return [NSString stringWithFormat: @"Current Weather in %@, %@", self.city, self.state];
     }
     if (section == 1) {
         return @"7 Day Forecast";
@@ -157,6 +165,11 @@
 {
     NSLog(@"didFailWithError: %@", error);
     
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Oh no!" message:@"We couldn't get your current location. Please try again." preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *ok = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
+    [alert addAction:ok];
+    [self presentViewController:alert animated:YES completion:nil];
+    
 }
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray<CLLocation *> *)locations {
@@ -175,7 +188,7 @@
         if (hasValidData){
             
             NSLog(@"Hitting API");
-            self.current = [[CurrentForecast alloc] initWithDictionary:dict[@"currently"]];
+            self.currentForecast = [[CurrentForecast alloc] initWithDictionary:dict[@"currently"]];
             self.dayForecasts = [NSMutableArray new];
             NSArray *temp = dict[@"daily"][@"data"];
             for (NSDictionary *dictionary in temp) {
@@ -199,13 +212,9 @@
                     NSLog(@"Updating tableview");
                     [self.tableView reloadData];
                 }];
-                
             }
         }];
-
     }];
-    
-    
 }
 
 - (void)locationManager:(CLLocationManager*)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status
@@ -213,9 +222,17 @@
     switch (status) {
         case kCLAuthorizationStatusNotDetermined: {
             NSLog(@"User still thinking..");
+            [self.locationManager requestWhenInUseAuthorization];
         } break;
         case kCLAuthorizationStatusDenied: {
             NSLog(@"User hates you");
+            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Sorry!" message:@"This app won't work without being authorized to use Location Services." preferredStyle:UIAlertControllerStyleAlert];
+            UIAlertAction *openSettings = [UIAlertAction actionWithTitle:@"Open Settings" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                NSURL *url = [NSURL URLWithString:UIApplicationOpenSettingsURLString];
+                [[UIApplication sharedApplication] openURL:url];
+            }];
+            [alert addAction:openSettings];
+            [self presentViewController:alert animated:YES completion:nil];
         } break;
         case kCLAuthorizationStatusAuthorizedWhenInUse:
         case kCLAuthorizationStatusAuthorizedAlways: {
