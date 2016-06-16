@@ -51,6 +51,15 @@
     
 }
 
+- (IBAction)infoButtonTapped:(id)sender {
+    
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Acknowledgments" message:@"For Icons: Joel Avery from the Noun Project"  preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *close = [UIAlertAction actionWithTitle:@"Close" style:UIAlertActionStyleDefault handler:nil];
+    [alert addAction:close];
+    [self presentViewController:alert animated:YES completion:nil];
+    
+}
+
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -178,7 +187,6 @@
     
     [WeatherAPIClient getWeatherInfoForCurrentLocationForLatitude:self.latitude longitude:self.longitude withCompletion:^(NSDictionary *dict, BOOL hasValidData) {
         if (hasValidData){
-            NSLog(@"Hitting API");
             self.currentForecast = [[CurrentForecast alloc] initWithDictionary:dict[@"currently"]];
             self.dayForecasts = [NSMutableArray new];
             NSArray *temp = dict[@"daily"][@"data"];
@@ -198,7 +206,6 @@
                 }
                 if (count == 0) {
                     [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-                        NSLog(@"Updating tableview");
                         [self.tableView reloadData];
                     }];
                 }

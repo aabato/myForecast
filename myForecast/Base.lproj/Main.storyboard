@@ -209,7 +209,17 @@
                             <outlet property="delegate" destination="GWA-5d-RsG" id="7Vp-WP-d4A"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="W6I-jx-2hy"/>
+                    <navigationItem key="navigationItem" id="W6I-jx-2hy">
+                        <barButtonItem key="rightBarButtonItem" style="plain" id="awn-UK-8Y9">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="infoLight" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" id="ceo-NN-WFO">
+                                <rect key="frame" x="558" y="11" width="22" height="22"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <connections>
+                                    <action selector="infoButtonTapped:" destination="GWA-5d-RsG" eventType="touchUpInside" id="v7L-UZ-guf"/>
+                                </connections>
+                            </button>
+                        </barButtonItem>
+                    </navigationItem>
                     <refreshControl key="refreshControl" opaque="NO" multipleTouchEnabled="YES" contentMode="center" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" id="k5u-GS-G8c">
                         <autoresizingMask key="autoresizingMask"/>
                         <connections>
