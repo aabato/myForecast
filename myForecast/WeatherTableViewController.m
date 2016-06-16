@@ -136,7 +136,7 @@
 }
 
 -(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-    if (section == 0) {
+    if (section == 0 && self.city && self.state) {
         return [NSString stringWithFormat: @"Current Weather in %@, %@", self.city, self.state];
     }
     if (section == 1) {
