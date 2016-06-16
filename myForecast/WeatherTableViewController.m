@@ -40,7 +40,7 @@
 - (IBAction)refreshData:(id)sender {
     
     self.currentForecast = nil;
-    [self.dayForecasts removeAllObjects];
+    self.dayForecasts = nil;
     self.currentLocation = nil;
     self.latitude = @"";
     self.longitude = @"";
