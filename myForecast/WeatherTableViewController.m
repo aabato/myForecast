@@ -34,7 +34,6 @@
     [super viewDidLoad];
     
     [self getLocation];
-    
 }
 
 - (IBAction)refreshData:(id)sender {
@@ -48,8 +47,6 @@
     self.state = @"";
     
     NSLog(@"Refreshing");
-    
-    NSLog(@"%@, %@, %@, %@, %@, %@, %@", self.currentForecast, self.dayForecasts, self.currentLocation, self.latitude, self.longitude, self.city, self.state);
     
     [self getLocation];
     [self.refreshControl endRefreshing];
@@ -67,7 +64,7 @@
     if (section == 0) {
         return 2;
     }
-    else if (section == 1) {
+    else if (section == 2) {
         return self.dayForecasts.count - 1;
     }
     
@@ -81,7 +78,7 @@
         
         DayForecast *today = self.dayForecasts[0];
         
-        cell.currentTempLabel.text = [NSString stringWithFormat:@"%@\u00B0 F", self.currentForecast.currentTemp];
+        cell.currentTempLabel.text = [NSString stringWithFormat:@"%@\u00B0F", self.currentForecast.currentTemp];
         cell.summaryLabel.text = self.currentForecast.summary;
         cell.highLowTempLabel.text = [NSString stringWithFormat:@"HI %@\u00B0F  LO %@\u00B0F",today.tempMax, today.tempMin];
         cell.weatherIconImage.image = [UIImage imageNamed:self.currentForecast.icon];
@@ -91,9 +88,9 @@
     else if (indexPath.section == 0 && indexPath.row == 1) {
         CurrentDetailedTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"currentDetail" forIndexPath:indexPath];
         
-        cell.feelsLikeTempLabel.text = [NSString stringWithFormat:@"Feels like: %@\u00B0 F", self.currentForecast.apparentTemp];
-        cell.humidityLabel.text = [NSString stringWithFormat:@"Humidity: %.0f %%", self.currentForecast.humidity];
-        cell.chanceOfPrecipLabel.text = [NSString stringWithFormat:@"Chance of Precipitation: %.0f %%", self.currentForecast.precipProbability];
+        cell.feelsLikeTempLabel.text = [NSString stringWithFormat:@"Feels like: %@\u00B0F", self.currentForecast.apparentTemp];
+        cell.humidityLabel.text = [NSString stringWithFormat:@"Humidity: %.0f%%", self.currentForecast.humidity];
+        cell.chanceOfPrecipLabel.text = [NSString stringWithFormat:@"Chance of Precipitation: %.0f%%", self.currentForecast.precipProbability];
 
         return cell;
         
