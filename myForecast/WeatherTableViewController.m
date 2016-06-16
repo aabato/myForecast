@@ -183,27 +183,28 @@
                 [self.dayForecasts addObject:day];
             }
         }
+        
+        CLGeocoder *geocoder = [[CLGeocoder alloc] init];
+        [geocoder reverseGeocodeLocation:self.currentLocation completionHandler:^(NSArray<CLPlacemark *> * _Nullable placemarks, NSError * _Nullable error) {
+            NSUInteger count = placemarks.count;
+            
+            for (CLPlacemark *placemark in placemarks) {
+                self.city = [placemark locality];
+                self.state = [placemark administrativeArea];
+                NSLog(@"%@, %@", self.city, self.state);
+                count--;
+            }
+            if (count == 0) {
+                [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                    NSLog(@"Updating tableview");
+                    [self.tableView reloadData];
+                }];
+                
+            }
+        }];
 
     }];
     
-    CLGeocoder *geocoder = [[CLGeocoder alloc] init];
-    [geocoder reverseGeocodeLocation:self.currentLocation completionHandler:^(NSArray<CLPlacemark *> * _Nullable placemarks, NSError * _Nullable error) {
-        NSUInteger count = placemarks.count;
-        
-        for (CLPlacemark *placemark in placemarks) {
-            self.city = [placemark locality];
-            self.state = [placemark administrativeArea];
-            NSLog(@"%@, %@", self.city, self.state);
-            count--;
-        }
-        if (count == 0) {
-            [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-                NSLog(@"Updating tableview");
-                [self.tableView reloadData];
-            }];
-            
-        }
-    }];
     
 }
 
