@@ -42,6 +42,8 @@
     
     NSLog(@"Refreshing");
     
+    NSLog(@"%@, %@, %@, %@, %@, %@, %@", self.current, self.dayForecasts, self.currentLocation, self.latitude, self.longitude, self.city, self.state);
+    
     [self getLocation];
     [self.refreshControl endRefreshing];
     
@@ -64,7 +66,6 @@
     
     return 0;
 }
-
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
