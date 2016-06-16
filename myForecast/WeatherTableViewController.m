@@ -104,6 +104,7 @@
         DayForecast *day = self.dayForecasts[indexPath.row + 1];
         
         cell.MMDDLabel.text = day.date;
+        cell.dayLabel.text = day.day;
         cell.highLowTempLabel.text = [NSString stringWithFormat:@"%@\u00B0F/%@\u00B0F",day.tempMin,day.tempMax];
         cell.summaryLabel.text = day.summary;
         cell.weatherIconImage.image = [UIImage imageNamed:day.icon];

@@ -15,10 +15,14 @@
     if (self) {
         NSUInteger tempTime = [dictionary[@"time"] integerValue];
         NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-        dateFormatter.dateStyle = NSDateFormatterMediumStyle;
+        NSDateFormatter *dayFormatter = [[NSDateFormatter alloc] init];
         NSDate *tempDate = [NSDate dateWithTimeIntervalSince1970:tempTime];
+        
+        [dayFormatter setDateFormat:@"E"];
+        [dateFormatter setDateFormat:@"MM/dd"];
+        
         _date = [dateFormatter stringFromDate:tempDate];
-        _day = @""; //Change this later.
+        _day = [[dayFormatter stringFromDate:tempDate] uppercaseString];
         
         _tempMax = [NSString stringWithFormat:@"%.0f", [dictionary[@"temperatureMax"] doubleValue]];
         _tempMin = [NSString stringWithFormat:@"%.0f", [dictionary[@"temperatureMin"] doubleValue]];
