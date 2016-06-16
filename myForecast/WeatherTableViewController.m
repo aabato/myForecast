@@ -45,9 +45,7 @@
     self.longitude = @"";
     self.city = @"";
     self.state = @"";
-    
-    NSLog(@"Refreshing");
-    
+        
     [self getLocation];
     [self.refreshControl endRefreshing];
     
@@ -78,33 +76,38 @@
         
         DayForecast *today = self.dayForecasts[0];
         
-        cell.currentTempLabel.text = [NSString stringWithFormat:@"%@\u00B0F", self.currentForecast.currentTemp];
-        cell.summaryLabel.text = self.currentForecast.summary;
-        cell.highLowTempLabel.text = [NSString stringWithFormat:@"HI %@\u00B0F  LO %@\u00B0F",today.tempMax, today.tempMin];
-        cell.weatherIconImage.image = [UIImage imageNamed:self.currentForecast.icon];
+        if (today) {
+            cell.currentTempLabel.text = [NSString stringWithFormat:@"%@\u00B0F", self.currentForecast.currentTemp];
+            cell.summaryLabel.text = self.currentForecast.summary;
+            cell.highLowTempLabel.text = [NSString stringWithFormat:@"HI %@\u00B0F  LO %@\u00B0F",today.tempMax, today.tempMin];
+            cell.weatherIconImage.image = [UIImage imageNamed:self.currentForecast.icon];
+        }
         
         return cell;
     }
     else if (indexPath.section == 0 && indexPath.row == 1) {
         CurrentDetailedTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"currentDetail" forIndexPath:indexPath];
         
-        cell.feelsLikeTempLabel.text = [NSString stringWithFormat:@"Feels like: %@\u00B0F", self.currentForecast.apparentTemp];
-        cell.humidityLabel.text = [NSString stringWithFormat:@"Humidity: %.0f%%", self.currentForecast.humidity];
-        cell.chanceOfPrecipLabel.text = [NSString stringWithFormat:@"Chance of Precipitation: %.0f%%", self.currentForecast.precipProbability];
+        if (self.currentForecast) {
+            cell.feelsLikeTempLabel.text = [NSString stringWithFormat:@"Feels like: %@\u00B0F", self.currentForecast.apparentTemp];
+            cell.humidityLabel.text = [NSString stringWithFormat:@"Humidity: %.0f%%", self.currentForecast.humidity];
+            cell.chanceOfPrecipLabel.text = [NSString stringWithFormat:@"Chance of Precipitation: %.0f%%", self.currentForecast.precipProbability];
+        }
 
         return cell;
-        
     }
     else if (indexPath.section == 1) {
         DailyWeatherTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"dayForecast" forIndexPath:indexPath];
         
         DayForecast *day = self.dayForecasts[indexPath.row + 1];
         
-        cell.MMDDLabel.text = day.date;
-        cell.dayLabel.text = day.day;
-        cell.highLowTempLabel.text = [NSString stringWithFormat:@"HI %@\u00B0F  LO %@\u00B0F",day.tempMax,day.tempMin];
-        cell.summaryLabel.text = day.summary;
-        cell.weatherIconImage.image = [UIImage imageNamed:day.icon];
+        if (day) {
+            cell.MMDDLabel.text = day.date;
+            cell.dayLabel.text = day.day;
+            cell.highLowTempLabel.text = [NSString stringWithFormat:@"HI %@\u00B0F  LO %@\u00B0F",day.tempMax,day.tempMin];
+            cell.summaryLabel.text = day.summary;
+            cell.weatherIconImage.image = [UIImage imageNamed:day.icon];
+        }
         
         return cell;
     }
@@ -141,9 +144,6 @@
 # pragma mark - Data Retrieval
 
 - (void)getLocation {
-    
-    NSLog(@"GET LOCATION CALLED");
-    
     if ([CLLocationManager locationServicesEnabled]) {
         self.locationManager = [[CLLocationManager alloc] init];
         self.locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters;
@@ -161,24 +161,18 @@
 
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
 {
-    NSLog(@"didFailWithError: %@", error);
-    
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Oh no!" message:@"We couldn't get your current location. Please try again." preferredStyle:UIAlertControllerStyleAlert];
     UIAlertAction *ok = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
     [alert addAction:ok];
     [self presentViewController:alert animated:YES completion:nil];
-    
 }
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray<CLLocation *> *)locations {
     
-    NSLog(@"Location found");
     self.currentLocation = [locations lastObject];
     
     self.latitude = [NSString stringWithFormat:@"%f",self.currentLocation.coordinate.latitude];
     self.longitude = [NSString stringWithFormat:@"%f",self.currentLocation.coordinate.longitude];
-    
-    NSLog(@"LAT: %@, LON: %@", self.latitude, self.longitude);
     
     [self.locationManager stopUpdatingLocation];
     
@@ -200,7 +194,6 @@
                 for (CLPlacemark *placemark in placemarks) {
                     self.city = [placemark locality];
                     self.state = [placemark administrativeArea];
-                    NSLog(@"%@, %@", self.city, self.state);
                     count--;
                 }
                 if (count == 0) {
@@ -226,11 +219,9 @@
 {
     switch (status) {
         case kCLAuthorizationStatusNotDetermined: {
-            NSLog(@"User still thinking..");
             [self.locationManager requestWhenInUseAuthorization];
         } break;
         case kCLAuthorizationStatusDenied: {
-            NSLog(@"User hates you");
             UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Sorry!" message:@"This app won't work without being authorized to use Location Services." preferredStyle:UIAlertControllerStyleAlert];
             UIAlertAction *openSettings = [UIAlertAction actionWithTitle:@"Open Settings" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
                 NSURL *url = [NSURL URLWithString:UIApplicationOpenSettingsURLString];

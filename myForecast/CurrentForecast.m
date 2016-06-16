@@ -13,8 +13,6 @@
 -(instancetype)initWithDictionary:(NSDictionary *)dictionary {
     self = [super init];
     if (self) {
-        _tempMin = @"";
-        _tempMax = @"";
         _apparentTemp = [NSString stringWithFormat:@"%.0f", [dictionary[@"apparentTemperature"] doubleValue]];
         _humidity = [dictionary[@"humidity"] doubleValue] * 100;
         _icon = [NSString stringWithFormat:@"%@", dictionary[@"icon"]];

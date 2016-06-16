@@ -10,8 +10,6 @@
 
 @interface CurrentForecast : NSObject
 
-@property (strong, nonatomic) NSString *tempMin;
-@property (strong, nonatomic) NSString *tempMax;
 @property (strong, nonatomic) NSString *apparentTemp;
 @property (assign, nonatomic) CGFloat humidity;
 @property (strong, nonatomic) NSString *icon;
