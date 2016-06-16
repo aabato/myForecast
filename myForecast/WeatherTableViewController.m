@@ -64,7 +64,7 @@
     if (section == 0) {
         return 2;
     }
-    else if (section == 2) {
+    else if (section == 1) {
         return self.dayForecasts.count - 1;
     }
     
@@ -184,7 +184,6 @@
     
     [WeatherAPIClient getWeatherInfoForCurrentLocationForLatitude:self.latitude longitude:self.longitude withCompletion:^(NSDictionary *dict, BOOL hasValidData) {
         if (hasValidData){
-            
             NSLog(@"Hitting API");
             self.currentForecast = [[CurrentForecast alloc] initWithDictionary:dict[@"currently"]];
             self.dayForecasts = [NSMutableArray new];
@@ -193,25 +192,33 @@
                 DayForecast *day = [[DayForecast alloc] initWithDictionary:dictionary];
                 [self.dayForecasts addObject:day];
             }
+            
+            CLGeocoder *geocoder = [[CLGeocoder alloc] init];
+            [geocoder reverseGeocodeLocation:self.currentLocation completionHandler:^(NSArray<CLPlacemark *> * _Nullable placemarks, NSError * _Nullable error) {
+                NSUInteger count = placemarks.count;
+                
+                for (CLPlacemark *placemark in placemarks) {
+                    self.city = [placemark locality];
+                    self.state = [placemark administrativeArea];
+                    NSLog(@"%@, %@", self.city, self.state);
+                    count--;
+                }
+                if (count == 0) {
+                    [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                        NSLog(@"Updating tableview");
+                        [self.tableView reloadData];
+                    }];
+                }
+            }];
         }
         
-        CLGeocoder *geocoder = [[CLGeocoder alloc] init];
-        [geocoder reverseGeocodeLocation:self.currentLocation completionHandler:^(NSArray<CLPlacemark *> * _Nullable placemarks, NSError * _Nullable error) {
-            NSUInteger count = placemarks.count;
-            
-            for (CLPlacemark *placemark in placemarks) {
-                self.city = [placemark locality];
-                self.state = [placemark administrativeArea];
-                NSLog(@"%@, %@", self.city, self.state);
-                count--;
-            }
-            if (count == 0) {
-                [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-                    NSLog(@"Updating tableview");
-                    [self.tableView reloadData];
-                }];
-            }
-        }];
+        else {
+            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Cannot retrieve data" message:@"There seems to be something wrong with our connection. Please try again." preferredStyle:UIAlertControllerStyleAlert];
+            UIAlertAction *ok = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
+            [alert addAction:ok];
+            [self presentViewController:alert animated:YES completion:nil];
+        }
+        
     }];
 }
 

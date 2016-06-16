@@ -17,14 +17,9 @@
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     [manager GET:urlString parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         completionBlock(responseObject, YES);
-        
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        NSLog(@"SOMETHING WENT WRONG");
-        NSLog(@"%@",error);
-        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Oh no!" message:[NSString stringWithFormat:@"Oh no! Something went wrong. Error: %@", [error description]] preferredStyle:UIAlertControllerStyleAlert];
-        UIAlertAction *ok = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
-        [alert addAction:ok];
-        
+        NSDictionary *errorDict = @{@"Error":error};
+        completionBlock(errorDict, NO);
     }];
     
     
