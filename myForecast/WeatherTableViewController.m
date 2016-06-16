@@ -83,7 +83,7 @@
         
         cell.currentTempLabel.text = [NSString stringWithFormat:@"%@\u00B0 F", self.currentForecast.currentTemp];
         cell.summaryLabel.text = self.currentForecast.summary;
-        cell.highLowTempLabel.text = [NSString stringWithFormat:@"%@\u00B0 F/%@\u00B0 F",today.tempMin,today.tempMax];
+        cell.highLowTempLabel.text = [NSString stringWithFormat:@"HI %@\u00B0F    LO %@\u00B0F",today.tempMax, today.tempMin];
         cell.weatherIconImage.image = [UIImage imageNamed:self.currentForecast.icon];
         
         return cell;
@@ -105,7 +105,7 @@
         
         cell.MMDDLabel.text = day.date;
         cell.dayLabel.text = day.day;
-        cell.highLowTempLabel.text = [NSString stringWithFormat:@"%@\u00B0F/%@\u00B0F",day.tempMin,day.tempMax];
+        cell.highLowTempLabel.text = [NSString stringWithFormat:@"HI %@\u00B0F   LO %@\u00B0F",day.tempMax,day.tempMin];
         cell.summaryLabel.text = day.summary;
         cell.weatherIconImage.image = [UIImage imageNamed:day.icon];
         
